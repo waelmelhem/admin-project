@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BrandController;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +21,8 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get("/home",function() {
-echo 'this is a home page';
+Route::get("/home", function () {
+    echo 'this is a home page';
 });
 
 // Route::get('/about', function () {
@@ -31,23 +33,26 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/contact',[ContactController::class,"contact"])->name('con');
+Route::get('/contact', [ContactController::class, "contact"])->name('con');
 //category controller 
 
-Route::get('/category/all',[CategoryController::class,'AllCat'])->name('all.category');
-Route::post('/category/add',[CategoryController::class,'AddCat'])->name('store.category');
+Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
+Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
 
-Route::post('/category/update/{id}',[CategoryController::class,'updateCat'])->name('update.category');
+Route::post('/category/update/{id}', [CategoryController::class, 'updateCat'])->name('update.category');
 
 
-Route::get('/category/edit/{id}',[CategoryController::class,'editCat'])->name('edit.category');
-Route::get('/category/Softdelete/{id}',[CategoryController::class,'deleteCat'])->name('delete.category');
+Route::get('/category/edit/{id}', [CategoryController::class, 'editCat'])->name('edit.category');
+Route::get('/category/Softdelete/{id}', [CategoryController::class, 'deleteCat'])->name('delete.category');
 
-Route::get('/category/restore/{id}',[CategoryController::class,'restoreCat'])->name('restore.category');
-Route::get('/category/remove/{id}',[CategoryController::class,'removeCat'])->name('remove.category');
+Route::get('/category/restore/{id}', [CategoryController::class, 'restoreCat'])->name('restore.category');
+Route::get('/category/remove/{id}', [CategoryController::class, 'removeCat'])->name('remove.category');
+
+Route::get('/Brands/all', [BrandController::class, 'allBrand'])->name('all.brands');
+Route::post('/Brand/add', [BrandController::class, 'AddBrand'])->name('store.Brand');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // $users =User ::all();
-    $users=DB::table('users')->get();
-    return view('dashboard',compact('users'));
+    $users = DB::table('users')->get();
+    return view('dashboard', compact('users'));
 })->name('dashboard');
